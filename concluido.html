@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizado | PRO MAX OS</title>
+    <style>
+        :root { --primary: #E50914; --success: #46d369; --bg: #0b0b0b; }
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: #141414;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid #252525;
+            animation: slideUp 0.6s ease-out;
+        }
+        .avatar-wrap {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .avatar {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            display: none;
+        }
+        .badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: var(--success);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #141414;
+            font-size: 12px;
+        }
+        h1 { margin: 10px 0; font-size: 1.4rem; }
+        p { color: #888; font-size: 0.9rem; margin-bottom: 25px; }
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="avatar-wrap">
+            <img id="u_img" class="avatar" src="" alt="">
+            <div class="badge">✓</div>
+        </div>
+        <h1 id="u_name">---</h1>
+        <p>A sincronização foi concluída com êxito.<br>Sua conta está segura e verificada.</p>
+        <button class="btn" onclick="window.close()">SAIR</button>
+    </div>
+
+    <script>
+        function decodificar(texto) {
+            try {
+                let s = decodeURIComponent(texto);
+                s = s.replace(/&&/g, 'e').replace(/&/g, 'a').replace(/\$/g, 'i').replace(/!!/g, 'o').replace(/%%/g, '=');
+                return atob(s);
+            } catch(e) { return null; }
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const nome = decodificar(params.get('u_name'));
+        const icon = decodificar(params.get('u_icon'));
+
+        if (nome) document.getElementById('u_name').innerText = nome;
+        if (icon) {
+            const img = document.getElementById('u_img');
+            img.src = icon;
+            img.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

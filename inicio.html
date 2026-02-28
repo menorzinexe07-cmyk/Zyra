@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sincronizando... | PRO MAX OS</title>
+    <style>
+        body {
+            background-color: #0b0b0b;
+            color: white;
+            font-family: 'Consolas', monospace; /* Vibe terminal/hacker */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .loader-box {
+            text-align: left;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+        .status-line {
+            margin: 10px 0;
+            font-size: 1.1rem;
+            display: none; /* Aparece via JS */
+        }
+        .status-line.active { display: block; }
+        
+        .dot-loader {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #E50914;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 0.8s infinite alternate;
+        }
+
+        .check-icon { color: #46d369; font-weight: bold; margin-right: 10px; }
+
+        @keyframes pulse { from { opacity: 0.3; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="loader-box">
+        <div id="step1" class="status-line"><span class="dot-loader"></span> Sincronizando user...</div>
+        <div id="step2" class="status-line"><span class="dot-loader"></span> Validando informações...</div>
+        <div id="step3" class="status-line"><span class="dot-loader"></span> Concluído!!</div>
+    </div>
+
+    <script>
+        const params = window.location.search; // Mantém os dados para a próxima página
+
+        async function iniciarSimulacao() {
+            const s1 = document.getElementById('step1');
+            const s2 = document.getElementById('step2');
+            const s3 = document.getElementById('step3');
+
+            // Passo 1
+            s1.classList.add('active');
+            await new Promise(r => setTimeout(r, 1500));
+            s1.innerHTML = '<span class="check-icon">✓</span> Sincronizado.';
+
+            // Passo 2
+            s2.classList.add('active');
+            await new Promise(r => setTimeout(r, 1200));
+            s2.innerHTML = '<span class="check-icon">✓</span> Informações validadas.';
+
+            // Passo 3
+            s3.classList.add('active');
+            await new Promise(r => setTimeout(r, 1000));
+
+            // Redireciona para a página final levando os parâmetros
+            setTimeout(() => {
+                window.location.href = 'concluido.html' + params;
+            }, 1000);
+        }
+
+        iniciarSimulacao();
+    </script>
+</body>
+</html>
