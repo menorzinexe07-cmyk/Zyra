@@ -2,6 +2,8 @@
   "version": 2,
   "rewrites": [
     { "source": "/callback", "destination": "/api/callback.js" },
+    { "source": "/inicio", "destination": "/inicio.html" },
     { "source": "/", "destination": "/inicio.html" }
-  ]
+  ],
+  "cleanUrls": true
 }
